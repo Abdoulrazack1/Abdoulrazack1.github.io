@@ -6,6 +6,7 @@ const chrome = path.join(process.env.USERPROFILE, ".cache/puppeteer/chrome/win64
 const browser = await puppeteer.launch({ executablePath: chrome, headless: true, args: ["--no-sandbox", "--enable-gpu-rasterization"] });
 const page = await browser.newPage();
 await page.setViewport({ width: 1440, height: 900 });
+if (process.env.THEME) await page.evaluateOnNewDocument((t) => localStorage.setItem("theme", t), process.env.THEME);
 await page.goto(url, { waitUntil: "networkidle2", timeout: 90000 });
 await new Promise((r) => setTimeout(r, 6000));
 await page.mouse.move(600, 400);
