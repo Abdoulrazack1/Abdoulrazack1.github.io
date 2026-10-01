@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Promo — Abdoulrazack Abdillahi</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+  :root {
+    --paper: #f3eee5;
+    --ink: #1c1915;
+    --red: #e24c25;
+    --serif: "Instrument Serif", serif;
+    --sans: "Instrument Sans", sans-serif;
+    --mono: "JetBrains Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--paper); }
+  body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+  .scene { position: absolute; inset: 0; overflow: hidden; visibility: hidden; isolation: isolate; }
+  #s1 { z-index: 1; } #s2 { z-index: 2; } #s3 { z-index: 3; } #s4 { z-index: 4; } #s5 { z-index: 5; }
+  .mask { overflow: hidden; display: block; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+  .mask > span { display: inline-block; }
+  .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.03em; line-height: 0.95; }
+  em { font-style: italic; color: var(--red); }
+  .mono { font-family: var(--mono); font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+  /* Interface persistante */
+  .ui { position: absolute; inset: 0; z-index: 50; pointer-events: none; color: var(--ink); }
+  .ui__top, .ui__bottom { position: absolute; left: 64px; right: 64px; display: flex; justify-content: space-between; }
+  .ui__top { top: 56px; }
+  .ui__bottom { bottom: 58px; }
+  .ui__bar { position: absolute; left: 0; bottom: 0; height: 8px; width: 100%; background: var(--red); transform-origin: left; transform: scaleX(0); }
+
+  /* S1 — accroche */
+  #s1 { background: var(--paper); }
+  #s1 .txt { position: absolute; left: 64px; top: 370px; font-size: 220px; }
+
+  /* S2 — typo cinétique */
+  #s2 { background: var(--paper); }
+  #s2 .lead { position: absolute; left: 64px; top: 420px; font-size: 150px; }
+  #s2 .slot { position: absolute; left: 64px; top: 580px; height: 1.02em; font-size: 190px; overflow: hidden; }
+  #s2 .strip { display: flex; flex-direction: column; }
+  #s2 .strip span { display: block; height: 1.02em; line-height: 1.02em; white-space: nowrap; }
+  #s2 .tag { position: absolute; left: 68px; top: 900px; color: rgba(28,25,21,.55); }
+  #s2 .circle { position: absolute; left: 540px; top: 675px; width: 40px; height: 40px; margin: -20px; border-radius: 50%; background: var(--red); transform: scale(0); }
+
+  /* S3 — montage projets */
+  .slide { position: absolute; inset: 0; visibility: hidden; color: #fff; }
+  .slide .bg { position: absolute; inset: 0; }
+  .slide .bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 70% at 80% 0%, rgba(255,255,255,.18), transparent 55%); }
+  .slide .idx { position: absolute; left: 64px; top: 140px; opacity: .85; }
+  .slide .name { position: absolute; left: 60px; top: 190px; font-size: 168px; color: #fff; }
+  .slide .cat { position: absolute; left: 66px; top: 380px; font-size: 34px; opacity: .88; font-weight: 500; }
+  .frame { position: absolute; left: 90px; right: 90px; top: 520px; border-radius: 14px 14px 0 0; overflow: hidden; background: #fff; box-shadow: 0 60px 120px -30px rgba(0,0,0,.55); }
+  .frame__bar { height: 44px; background: #f3f1ee; display: flex; align-items: center; gap: 10px; padding: 0 18px; border-bottom: 1px solid rgba(0,0,0,.07); }
+  .frame__bar i { width: 12px; height: 12px; border-radius: 50%; background: rgba(0,0,0,.14); }
+  .frame__bar b { flex: 1; text-align: center; font: 400 15px var(--mono); color: rgba(0,0,0,.45); margin-right: 50px; }
+  .frame img { display: block; width: 100%; }
+
+  /* S4 — chiffres */
+  #s4 { background: var(--ink); color: var(--paper); }
+  .stat { position: absolute; left: 64px; right: 64px; top: 300px; visibility: hidden; }
+  .stat .num { font-size: 470px; line-height: .8; letter-spacing: -0.05em; }
+  .stat .lbl { margin-top: 60px; font-size: 64px; font-family: var(--serif); line-height: 1.05; }
+  .stat .lbl em { color: #ff7a55; }
+  .stat .sub { margin-top: 26px; color: rgba(243,238,229,.55); }
+
+  /* S5/S6 — portrait + fin */
+  #s5 { background: var(--paper); }
+  #s5 .portrait { position: absolute; left: 616px; top: 150px; width: 400px; height: 600px; border-radius: 14px; overflow: hidden; }
+  #s5 .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+  #s5 .badge { position: absolute; left: 18px; bottom: 18px; background: rgba(243,238,229,.92); border-radius: 99px; padding: 12px 20px; font-size: 24px; display: flex; gap: 12px; align-items: center; }
+  #s5 .dot { width: 14px; height: 14px; border-radius: 50%; background: #2fbf6b; }
+  #s5 .who { position: absolute; left: 64px; top: 190px; width: 540px; }
+  #s5 .who .first { font-size: 108px; }
+  #s5 .who .role { margin-top: 30px; font-size: 32px; line-height: 1.35; color: rgba(28,25,21,.72); }
+  #s5 .open { position: absolute; left: 64px; top: 830px; font-size: 132px; }
+  #s5 .chips { position: absolute; left: 64px; top: 1095px; display: flex; gap: 14px; }
+  #s5 .chip { border: 1.5px solid rgba(28,25,21,.3); border-radius: 99px; padding: 12px 22px; font-size: 26px; font-weight: 500; }
+  #s5 .url { position: absolute; left: 64px; top: 1200px; font: 400 34px var(--mono); }
+  #s5 .url svg { position: absolute; left: 0; bottom: -14px; width: 100%; height: 14px; overflow: visible; }
+  #s5 .url path { fill: none; stroke: var(--red); stroke-width: 4; stroke-linecap: round; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <!-- S1 -->
+  <section class="scene" id="s1">
+    <div class="txt serif">
+      <span class="mask"><span>Un produit</span></span>
+      <span class="mask"><span>se juge</span></span>
+      <span class="mask"><span><em>en entier.</em></span></span>
+    </div>
+  </section>
+
+  <!-- S2 -->
+  <section class="scene" id="s2">
+    <div class="lead serif"><span class="mask"><span>Je conçois</span></span></div>
+    <div class="slot serif">
+      <div class="strip">
+        <span>la donnée,</span>
+        <span>l’API,</span>
+        <span>l’interface,</span>
+        <span><em>le mouvement.</em></span>
+      </div>
+    </div>
+    <div class="tag mono"><span class="mask"><span>Développeur full-stack — Lille</span></span></div>
+    <div class="circle"></div>
+  </section>
+
+  <!-- S3 -->
+  <section class="scene" id="s3"></section>
+
+  <!-- S4 -->
+  <section class="scene" id="s4">
+    <div class="stat" data-to="8">
+      <div class="num serif"><span class="mask"><span class="n">0</span></span></div>
+      <div class="lbl"><span class="mask"><span>études de cas <em>détaillées</em></span></span></div>
+      <div class="sub mono"><span class="mask"><span>Du schéma SQL au pixel</span></span></div>
+    </div>
+    <div class="stat" data-to="49">
+      <div class="num serif"><span class="mask"><span class="n">0</span></span></div>
+      <div class="lbl"><span class="mask"><span>outils IA, <em>open source</em></span></span></div>
+      <div class="sub mono"><span class="mask"><span>Serveur MCP · 2 dépendances</span></span></div>
+    </div>
+    <div class="stat" data-to="100" data-suffix="+">
+      <div class="num serif"><span class="mask"><span class="n">0</span></span></div>
+      <div class="lbl"><span class="mask"><span>tests automatisés, <em>sécurité en base</em></span></span></div>
+      <div class="sub mono"><span class="mask"><span>Plateforme juridique · PostgreSQL RLS</span></span></div>
+    </div>
+  </section>
+
+  <!-- S5 / S6 -->
+  <section class="scene" id="s5">
+    <div class="who">
+      <div class="first serif"><span class="mask"><span>Abdoulrazack</span></span><span class="mask"><span>Abdillahi<em>.</em></span></span></div>
+      <div class="role"><span class="mask"><span>Développeur full-stack</span></span><span class="mask"><span>Basé à Lille</span></span></div>
+    </div>
+    <div class="portrait">
+      <img src="/public/work/portrait.webp" alt="">
+      <div class="badge"><span class="dot"></span>Ouvert aux opportunités</div>
+    </div>
+    <div class="open serif">
+      <span class="mask"><span>Ouvert à toute</span></span>
+      <span class="mask"><span><em>opportunité.</em></span></span>
+    </div>
+    <div class="chips">
+      <span class="chip">CDI</span><span class="chip">CDD</span><span class="chip">Freelance</span><span class="chip">Alternance</span>
+    </div>
+    <div class="url">abdoulrazack1.github.io<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path pathLength="1" d="M1 6 C 25 2, 50 9, 75 4 S 95 5, 99 5"/></svg></div>
+  </section>
+
+  <!-- Interface -->
+  <div class="ui">
+    <div class="ui__top mono"><span>Abdoulrazack Abdillahi</span><span>Portfolio — 2026</span></div>
+    <div class="ui__bottom mono"><span class="tc">00:00</span><span class="ui__site">abdoulrazack1.github.io</span></div>
+    <div class="ui__bar"></div>
+  </div>
+</div>
+
+<script src="/node_modules/gsap/dist/gsap.min.js"></script>
+<script src="/node_modules/gsap/dist/CustomEase.min.js"></script>
+<script>
+gsap.registerPlugin(CustomEase);
+CustomEase.create("reveal", "0.16, 1, 0.3, 1");
+CustomEase.create("curtain", "0.76, 0, 0.24, 1");
+CustomEase.create("punch", "0.22, 1.4, 0.36, 1");
+
+const projects = [
+  { name: "Tsundoku", cat: "Média manga full-stack · en production", img: "tsundoku-1", url: "tsundoku-s6lz.onrender.com", bg: "linear-gradient(160deg,#e9542f,#b6301a 55%,#4a1209)" },
+  { name: "Cabinet d’avocats", cat: "Plateforme juridique · sécurité PostgreSQL", img: "cabinet-1", url: "espace.cabinet — démo", bg: "linear-gradient(160deg,#2f4a3f,#1d3029 55%,#0c1512)" },
+  { name: "Galactic Brain", cat: "Serveur MCP open source · 49 outils", img: "galactic-1", url: "github.com/Abdoulrazack1", bg: "linear-gradient(160deg,#5b4bff,#2a1f8f 55%,#0d0a2e)" },
+  { name: "C.C. Salouël", cat: "Club cycliste · routage vélo réel", img: "cycling-1", url: "ccs-salouel — club", bg: "linear-gradient(160deg,#1fbf9f,#0f6e63 55%,#06302c)" },
+  { name: "InkStudio", cat: "Studio d’animation · export MP4", img: "inkstudio-1", url: "inkstudio — app desktop", bg: "linear-gradient(160deg,#3a5bd9,#23338a 55%,#0e1440)" },
+  { name: "Inko", cat: "Lecteur manga · PWA hors-ligne", img: "inko-1", url: "abdoulrazack1.github.io/Inko", bg: "linear-gradient(160deg,#8a5cff,#4b2aa8 55%,#1a0f40)" },
+];
+const s3 = document.getElementById("s3");
+projects.forEach((p, i) => {
+  s3.insertAdjacentHTML("beforeend", `
+    <div class="slide" style="z-index:${i + 1}">
+      <div class="bg" style="background:${p.bg}"></div>
+      <div class="idx mono">(${String(i + 1).padStart(2, "0")}/06)</div>
+      <div class="name serif"><span class="mask"><span>${p.name}</span></span></div>
+      <div class="cat"><span class="mask"><span>${p.cat}</span></span></div>
+      <div class="frame"><div class="frame__bar"><i></i><i></i><i></i><b>${p.url}</b></div><img src="/public/work/${p.img}.webp" alt=""></div>
+    </div>`);
+});
+
+const tl = gsap.timeline({ paused: true, defaults: { ease: "reveal" } });
+// opacity en plus de visibility : un enfant marqué visible ne peut pas « percer » un parent masqué.
+const show = (el, t) => tl.set(el, { visibility: "visible", opacity: 1 }, t);
+const hide = (el, t) => tl.set(el, { visibility: "hidden", opacity: 0 }, t);
+const ui = document.querySelector(".ui");
+const uiColor = (c, t) => tl.to(ui, { color: c, duration: 0.2, ease: "none" }, t);
+
+// Interface persistante : barre de progression + timecode.
+tl.to(".ui__bar", { scaleX: 1, duration: 10, ease: "none" }, 0);
+const tc = document.querySelector(".tc");
+tl.to({ v: 0 }, { v: 10, duration: 10, ease: "none", onUpdate() { const v = this.targets()[0].v; tc.textContent = "00:" + String(Math.floor(v)).padStart(2, "0"); } }, 0);
+tl.from(".ui__top span, .ui__bottom span", { yPercent: 120, opacity: 0, duration: 0.8, stagger: 0.05 }, 0.1);
+
+// S1 — accroche (0 → 1.6)
+show("#s1", 0);
+tl.from("#s1 .mask > span", { yPercent: 115, rotate: 3, transformOrigin: "0 0", duration: 0.9, stagger: 0.11 }, 0.05);
+tl.from("#s1 em", { letterSpacing: "0.04em", duration: 1.2 }, 0.3);
+tl.to("#s1 .mask > span", { yPercent: -115, duration: 0.45, ease: "curtain", stagger: 0.05 }, 1.3);
+hide("#s1", 1.75);
+
+// S2 — typo cinétique (1.6 → 3.0)
+show("#s2", 1.6);
+tl.from("#s2 .lead .mask > span", { yPercent: 115, duration: 0.6 }, 1.6);
+tl.from("#s2 .strip", { yPercent: 25, opacity: 0, duration: 0.5 }, 1.68);
+tl.from("#s2 .tag .mask > span", { yPercent: 115, duration: 0.6 }, 1.75);
+[1, 2, 3].forEach((k, j) => tl.to("#s2 .strip", { y: `${-1.02 * k}em`, duration: 0.3, ease: "curtain" }, 2.0 + j * 0.27));
+tl.fromTo("#s2 .strip em", { scale: 0.9, transformOrigin: "0 50%" }, { scale: 1, duration: 0.5, ease: "punch" }, 2.6);
+tl.to("#s2 .circle", { scale: 70, duration: 0.55, ease: "curtain" }, 2.55);
+hide("#s2", 3.12);
+
+// S3 — montage des projets (3.0 → 6.0)
+show("#s3", 3.0);
+uiColor("#ffffff", 3.0);
+const slides = gsap.utils.toArray(".slide");
+slides.forEach((sl, i) => {
+  const t = 3.0 + i * 0.5;
+  const fromSide = i % 2 ? "inset(0% 0% 0% 100%)" : "inset(100% 0% 0% 0%)";
+  show(sl, t);
+  if (i > 0) tl.fromTo(sl, { clipPath: fromSide }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.32, ease: "curtain" }, t);
+  else tl.fromTo(sl, { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(100% at 50% 50%)", duration: 0.01 }, t);
+  tl.fromTo(sl.querySelector(".frame"), { yPercent: 40, rotate: i % 2 ? -5 : 5 }, { yPercent: 0, rotate: 0, duration: 0.7 }, t + 0.02);
+  tl.fromTo(sl.querySelector(".frame img"), { scale: 1.15, transformOrigin: "50% 0" }, { scale: 1, duration: 0.9 }, t + 0.02);
+  tl.from(sl.querySelector(".name .mask > span"), { yPercent: 115, duration: 0.5 }, t + 0.08);
+  tl.from(sl.querySelector(".cat .mask > span"), { yPercent: 115, duration: 0.5 }, t + 0.14);
+  tl.from(sl.querySelector(".idx"), { opacity: 0, duration: 0.3 }, t + 0.1);
+  if (i > 0) hide(slides[i - 1], t + 0.34);
+});
+hide("#s3", 6.25);
+
+// S4 — chiffres (6.0 → 7.6)
+show("#s4", 6.0);
+tl.fromTo("#s4", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.3, ease: "curtain" }, 6.0);
+uiColor("#f3eee5", 6.0);
+gsap.utils.toArray(".stat").forEach((st, i) => {
+  const t = 6.1 + i * 0.52;
+  const to = +st.dataset.to;
+  const suffix = st.dataset.suffix || "";
+  const n = st.querySelector(".n");
+  show(st, t);
+  tl.from(st.querySelector(".num .mask > span"), { yPercent: 110, duration: 0.45 }, t);
+  tl.fromTo(n, { scale: 1.12, transformOrigin: "0 100%" }, { scale: 1, duration: 0.5, ease: "punch" }, t + 0.05);
+  tl.to({ v: 0 }, { v: to, duration: 0.42, ease: "power3.out", onUpdate() { n.textContent = Math.round(this.targets()[0].v) + (this.progress() > 0.98 ? suffix : ""); } }, t);
+  tl.from(st.querySelectorAll(".lbl .mask > span, .sub .mask > span"), { yPercent: 115, duration: 0.45, stagger: 0.05 }, t + 0.08);
+  if (i < 2) tl.to(st.querySelectorAll(".mask > span"), { yPercent: -115, duration: 0.22, ease: "curtain" }, t + 0.42), hide(st, t + 0.52);
+});
+hide("#s4", 7.85);
+
+// S5 — portrait (7.6 → 8.8)
+show("#s5", 7.6);
+tl.fromTo("#s4", { clipPath: "inset(0% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.35, ease: "curtain", immediateRender: false }, 7.6);
+uiColor("#1c1915", 7.6);
+tl.fromTo("#s5 .portrait", { clipPath: "inset(50% 50% 50% 50% round 14px)" }, { clipPath: "inset(0% 0% 0% 0% round 14px)", duration: 0.8, ease: "curtain" }, 7.68);
+tl.fromTo("#s5 .portrait img", { scale: 1.4 }, { scale: 1.04, duration: 1.4 }, 7.68);
+tl.from("#s5 .who .mask > span", { yPercent: 115, duration: 0.7, stagger: 0.06 }, 7.8);
+tl.from("#s5 .badge", { y: 20, opacity: 0, duration: 0.5 }, 8.3);
+
+// S6 — fin (8.6 → 10)
+tl.from("#s5 .open .mask > span", { yPercent: 115, duration: 0.7, stagger: 0.08 }, 8.55);
+tl.from("#s5 .chip", { y: 30, opacity: 0, duration: 0.5, stagger: 0.05 }, 8.85);
+tl.from("#s5 .url", { opacity: 0, x: 20, duration: 0.5 }, 9.0);
+tl.fromTo("#s5 .url path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 9.15);
+tl.to(".ui__bottom", { opacity: 0, duration: 0.3 }, 8.85);
+tl.set({}, {}, 10);
+
+window.tl = tl;
+window.whenReady = Promise.all([
+  ...["120px 'Instrument Serif'", "italic 120px 'Instrument Serif'", "500 30px 'Instrument Sans'", "400 30px 'Instrument Sans'", "22px 'JetBrains Mono'"].map((f) => document.fonts.load(f)),
+  ...[...document.images].map((im) => (im.complete ? 1 : new Promise((r) => (im.onload = im.onerror = r)))),
+]).then(() => document.fonts.ready);
+// Aperçu en direct : ?play
+if (location.search.includes("play")) window.whenReady.then(() => tl.play());
+</script>
+</body>
+</html>
