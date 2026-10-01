@@ -10,7 +10,7 @@ const facts = [
   { label: "Basé à", value: "Lille, France" },
   { label: "Focus", value: "Full-stack TypeScript · Node · React" },
   { label: "Langues", value: "Français, anglais (C1), somali" },
-  { label: "Recherche", value: "Alternance — Concepteur Développeur d’Applications" },
+  { label: "Disponibilité", value: "Ouvert à toute opportunité — CDI, CDD, freelance, alternance" },
 ];
 
 export default function Hero() {
@@ -73,7 +73,7 @@ export default function Hero() {
           <Image src="/work/portrait.webp" alt="Portrait d’Abdoulrazack Abdillahi" fill priority sizes="(max-width: 860px) 100vw, 50vw" />
           <span className="hero__badge">
             <span className="pulse" aria-hidden="true" />
-            Disponible pour une alternance
+            Ouvert aux opportunités
           </span>
         </div>
       </div>

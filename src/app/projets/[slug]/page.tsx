@@ -23,7 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${p.name} — étude de cas`,
     description: p.summary,
-    openGraph: { title: `${p.name} — ${site.name}`, description: p.line, images: [p.cover] },
+    alternates: { canonical: `/projets/${p.slug}/` },
+    openGraph: { title: `${p.name} — ${site.name}`, description: p.line, url: `/projets/${p.slug}/`, images: [p.cover] },
   };
 }
 

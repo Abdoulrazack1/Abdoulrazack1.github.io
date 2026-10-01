@@ -54,7 +54,7 @@ export default function Footer() {
     <footer ref={ref} id="contact" className="footer">
       <div className="container">
         <SplitReveal as="p" className="display-m" stagger={0.06}>
-          Une alternance, un projet, une idée ? <em className="accent">Travaillons ensemble.</em>
+          Un poste, une mission, une idée ? <em className="accent">Travaillons ensemble.</em>
         </SplitReveal>
 
         <button type="button" className="footer__email roll-host" onClick={copy} data-cursor="Copier" aria-label={`Copier l’adresse ${site.email}`}>

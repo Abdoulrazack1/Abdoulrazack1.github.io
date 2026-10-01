@@ -53,7 +53,7 @@ export default function Services() {
 
       <div className="cta-strip">
         <SplitReveal as="p">
-          Un projet, une alternance ? <em className="accent">Parlons-en.</em>
+          Un poste, une mission, un projet ? <em className="accent">Parlons-en.</em>
         </SplitReveal>
         <Magnetic>
           <TLink href="/#contact" className="pill pill--light roll-host">

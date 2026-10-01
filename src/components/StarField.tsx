@@ -25,6 +25,18 @@ export default function StarField() {
     let stars: Star[] = [];
     const sparks: Spark[] = [];
     const mouse = { x: -999, y: -999, px: -999, py: -999 };
+    // Couleurs lues dans les tokens CSS : elles suivent le thème.
+    const palette = { star: "#ece8e1", alpha: 1, accent: "#ff8a66", dark: true };
+    const readTheme = () => {
+      const cs = getComputedStyle(document.documentElement);
+      palette.star = `rgb(${cs.getPropertyValue("--ink-rgb").trim()})`;
+      palette.alpha = parseFloat(cs.getPropertyValue("--star-alpha")) || 1;
+      palette.accent = cs.getPropertyValue("--accent").trim() || "#ff8a66";
+      palette.dark = document.documentElement.dataset.theme === "dark";
+    };
+    readTheme();
+    const observer = new MutationObserver(readTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -54,7 +66,7 @@ export default function StarField() {
     const draw = () => {
       t += 0.016;
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#ece8e1";
+      ctx.fillStyle = palette.star;
       const sy = window.scrollY;
 
       for (const s of stars) {
@@ -64,7 +76,7 @@ export default function StarField() {
         const a = 0.25 + 0.55 * s.z * (0.6 + 0.4 * Math.sin(t * 1.4 + s.tw));
         // fillRect plutôt qu'arc : à cette taille, invisible à l'œil et bien moins coûteux.
         const size = s.r * s.z * 1.6 + 0.4;
-        ctx.globalAlpha = a;
+        ctx.globalAlpha = a * palette.alpha;
         ctx.fillRect(s.x, y, size, size);
       }
 
@@ -101,8 +113,8 @@ export default function StarField() {
           sparks.splice(i, 1);
           continue;
         }
-        ctx.globalAlpha = k * 0.85;
-        ctx.fillStyle = p.hue ? "#ff8a66" : "#f3efe8";
+        ctx.globalAlpha = k * (palette.dark ? 0.85 : 0.6);
+        ctx.fillStyle = p.hue ? palette.accent : palette.star;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r * (0.4 + k * 0.6), 0, Math.PI * 2);
         ctx.fill();
@@ -124,6 +136,7 @@ export default function StarField() {
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       cancelAnimationFrame(raf);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("visibilitychange", onVisibility);

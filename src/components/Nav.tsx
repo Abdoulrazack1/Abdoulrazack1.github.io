@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { gsap, useGSAP, scroller, stage, prefersReducedMotion } from "@/lib/motion";
 import { TLink, useTransition } from "./Transition";
 import Roll from "./motion/Roll";
+import ThemeToggle from "./ThemeToggle";
 import { site } from "@/lib/site";
 
 const links = [
@@ -105,10 +106,13 @@ export default function Nav() {
             </TLink>
           </nav>
 
-          <button className="nav__burger" aria-expanded={open} aria-controls="menu" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} onClick={() => setOpen((v) => !v)}>
-            <span />
-            <span />
-          </button>
+          <div className="nav__actions">
+            <ThemeToggle />
+            <button className="nav__burger" aria-expanded={open} aria-controls="menu" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} onClick={() => setOpen((v) => !v)}>
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
       </header>
 

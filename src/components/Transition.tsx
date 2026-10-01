@@ -23,7 +23,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const navigate = useCallback(
     (href: string, label = "") => {
       const url = new URL(href, window.location.href);
-      if (url.pathname === window.location.pathname) {
+      const clean = (p: string) => p.replace(/\/+$/, "") || "/";
+      if (clean(url.pathname) === clean(window.location.pathname)) {
         if (url.hash) scroller.to(url.hash);
         else scroller.to(0);
         return;

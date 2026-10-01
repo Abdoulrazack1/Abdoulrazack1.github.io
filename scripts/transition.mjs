@@ -5,7 +5,7 @@ const b = await puppeteer.launch({ executablePath: chrome, headless: true });
 const p = await b.newPage();
 const errs=[]; p.on("pageerror", e=>errs.push(e.message));
 await p.setViewport({ width: 1440, height: 900 });
-await p.goto("http://localhost:3002/", { waitUntil: "networkidle2" });
+await p.goto("" + (process.env.BASE || "http://localhost:3002/") + "", { waitUntil: "networkidle2" });
 await new Promise(r => setTimeout(r, 5000));
 await p.evaluate(() => document.querySelector('a.card[href="/projets/galactic-brain"]').scrollIntoView());
 await new Promise(r => setTimeout(r, 1500));

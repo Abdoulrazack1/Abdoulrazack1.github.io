@@ -1,0 +1,18 @@
+import puppeteer from "puppeteer-core";
+import path from "node:path";
+const chrome = path.join(process.env.USERPROFILE, ".cache/puppeteer/chrome/win64-148.0.7778.97/chrome-win64/chrome.exe");
+const b = await puppeteer.launch({ executablePath: chrome, headless: true });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 900 });
+await p.goto("http://localhost:3006/", { waitUntil: "networkidle2" });
+await new Promise(r => setTimeout(r, 5000));
+const box = await (await p.$(".theme-toggle")).boundingBox();
+await p.mouse.click(box.x + 20, box.y + 20);
+await new Promise(r => setTimeout(r, 450));
+await p.screenshot({ path: process.env.TEMP + "/pf/th0.png" });
+await new Promise(r => setTimeout(r, 1200));
+await p.screenshot({ path: process.env.TEMP + "/pf/th1.png" });
+await p.reload({ waitUntil: "networkidle2" });
+await new Promise(r => setTimeout(r, 1500));
+console.log("theme after reload:", await p.evaluate(() => document.documentElement.dataset.theme));
+await b.close();

@@ -9,7 +9,7 @@ const statement =
   "J’ai d’abord étudié l’économie. Je suis devenu développeur par envie de fabriquer : aujourd’hui je modélise la donnée, je sécurise l’API et je soigne l’interface jusqu’au mouvement — parce qu’un produit se juge en entier.";
 
 const path = [
-  { when: "2026 →", title: "Concepteur Développeur d’Applications", desc: "Titre niveau 6, en alternance — je cherche l’entreprise qui m’accueille.", where: "Alternance", now: true },
+  { when: "Maintenant", title: "Ouvert à toute opportunité", desc: "Poste en CDI ou CDD, missions freelance, ou alternance vers le titre Concepteur Développeur d’Applications (niveau 6).", where: "Lille", now: true },
   { when: "2026", title: "Développeur Web & Web Mobile", desc: "Titre professionnel RNCP niveau 5 : front-end, back-end, RGAA, RGPD, SQL.", where: "Titre pro" },
   { when: "2025", title: "Bootcamp chef de projet", desc: "280 h : charte projet, parties prenantes, budget, ROI et planning.", where: "M2i" },
   { when: "2020 — 22", title: "Master Économie et Management Publics", desc: "Parcours développement économique, institutions, entreprises, territoires.", where: "Université de Lille" },
