@@ -20,13 +20,25 @@ export default function Hero() {
     const el = portrait.current!;
     const img = el.querySelector("img")!;
     if (prefersReducedMotion()) return;
-    // Dévoilement du portrait : le cadre s'ouvre par le bas pendant que l'image se détend.
-    gsap.set(el, { clipPath: "inset(100% 0% 0% 0% round 10px)" });
-    gsap.set(img, { scale: 1.35 });
-    stage.onReady(() => {
-      gsap.to(el, { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 1.8, ease: "curtain", delay: 0.5 });
-      gsap.to(img, { scale: 1.12, duration: 2.2, ease: "reveal", delay: 0.5 });
-    });
+    const badge = el.querySelector(".hero__badge");
+    if (document.documentElement.dataset.intro === "new") {
+      // Première visite : le cadre du loader vient se poser ici et devient ce portrait.
+      gsap.set(el, { autoAlpha: 0 });
+      gsap.set(img, { scale: 1.12 });
+      const onHandoff = () => {
+        gsap.set(el, { autoAlpha: 1 });
+        gsap.from(badge, { autoAlpha: 0, y: 14, duration: 0.9, ease: "reveal" });
+      };
+      window.addEventListener("intro:handoff", onHandoff, { once: true });
+    } else {
+      // Dévoilement du portrait : le cadre s'ouvre par le bas pendant que l'image se détend.
+      gsap.set(el, { clipPath: "inset(100% 0% 0% 0% round 10px)" });
+      gsap.set(img, { scale: 1.35 });
+      stage.onReady(() => {
+        gsap.to(el, { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 1.8, ease: "curtain", delay: 0.5 });
+        gsap.to(img, { scale: 1.12, duration: 2.2, ease: "reveal", delay: 0.5 });
+      });
+    }
     // Le soulignement de « Lille » se dessine à la main, après l'apparition du titre.
     // (SplitText déplace les nœuds : on interroge le DOM au moment de jouer.)
     gsap.set(".underline-draw path", { strokeDasharray: 1, strokeDashoffset: 1 });

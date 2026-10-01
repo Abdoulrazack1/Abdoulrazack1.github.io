@@ -415,20 +415,37 @@ main {
 }
 
 /* ------------------------------------------------------------------ */
-/* Loader                                                               */
+/* Loader : showreel, compteur mécanique, cadre qui devient le portrait */
 /* ------------------------------------------------------------------ */
 .loader {
   position: fixed;
   inset: 0;
   z-index: 180;
-  background: var(--panel);
   color: var(--ink);
+  pointer-events: auto;
+}
+.loader__panel {
+  position: absolute;
+  inset: 0;
+  background: var(--panel);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--gutter);
+  padding: calc(var(--gutter) + 6px) var(--gutter) var(--gutter);
+  clip-path: inset(0% 0% 0% 0%);
 }
-.loader__top,
+.loader__top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  overflow: hidden;
+}
+.loader__top > *:nth-child(2) {
+  text-align: center;
+}
+.loader__top > *:last-child {
+  text-align: right;
+}
 .loader__bottom {
   display: flex;
   justify-content: space-between;
@@ -437,20 +454,78 @@ main {
 }
 .loader__name {
   font-family: var(--serif);
-  font-size: clamp(2.6rem, 8vw, 8rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.6rem, 9vw, 9.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
   overflow: hidden;
+  padding-bottom: 0.04em;
 }
 .loader__name span {
   display: inline-block;
 }
-.loader__count {
+.loader__name em {
+  color: var(--accent);
+}
+.loader__digits {
+  display: flex;
   font-family: var(--serif);
-  font-size: clamp(4rem, 14vw, 14rem);
-  line-height: 0.8;
-  font-variant-numeric: tabular-nums;
+  font-size: clamp(3.4rem, 11vw, 11.5rem);
+  line-height: 1;
   letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  height: 1em;
+}
+.digit {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+}
+.digit__strip {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.s-o {
+  transition-duration: 0.22s;
+}
+.digit__strip span {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+.loader__digits sup {
+  font-size: 0.22em;
+  font-family: var(--mono);
+  letter-spacing: 0;
+  align-self: flex-start;
+  margin: 0.5em 0 0 0.3em;
+  color: var(--ink-mute);
+}
+.loader__caption {
+  position: absolute;
+  left: 50%;
+  top: calc(47% + min(12.5vw, 200px) + 18px);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.loader__caption-slot {
+  font-size: 13px;
+  height: 1.3em;
+  overflow: hidden;
+}
+.loader__caption-strip {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.32s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.loader__caption-strip span {
+  display: block;
+  height: 1.3em;
+  line-height: 1.3em;
 }
 .loader__bar {
   position: absolute;
@@ -461,6 +536,45 @@ main {
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
+}
+.loader__frame {
+  position: fixed;
+  left: 50%;
+  top: 47%;
+  width: min(40vw, 640px);
+  height: min(25vw, 400px);
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--bg-raise);
+  z-index: 2;
+  will-change: left, top, width, height;
+}
+.loader__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  will-change: transform, clip-path;
+}
+.loader__img.is-portrait {
+  object-position: 50% 30%;
+}
+@media (max-width: 760px) {
+  .loader__frame {
+    width: 72vw;
+    height: 45vw;
+  }
+  .loader__caption {
+    top: calc(47% + 22.5vw + 16px);
+  }
+  .loader__top > *:nth-child(2) {
+    display: none;
+  }
+  .loader__top {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* ------------------------------------------------------------------ */
