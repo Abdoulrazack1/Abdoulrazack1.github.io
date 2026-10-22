@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-const META = { light: "#f3eee5", dark: "#0e0f11" };
+const META = { light: "#2a3bff", dark: "#1d29c9" };
 
 function apply(theme: Theme) {
   document.documentElement.dataset.theme = theme;

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects, getProject, nextProject, type CaseBlock, type Project } from "@/lib/projects";
+import { projects, getProject, nextProject, type CaseBlock } from "@/lib/projects";
+import { themeOf, type CaseTheme } from "@/lib/caseThemes";
+import { caseFontVars } from "@/lib/caseFonts";
 import { site } from "@/lib/site";
-import SplitReveal from "@/components/motion/SplitReveal";
-import Reveal from "@/components/motion/Reveal";
-import Roll from "@/components/motion/Roll";
-import Stage from "@/components/Stage";
-import { TLink } from "@/components/Transition";
-import { CaseCover, Metrics, Gallery, NextProject, RefreshOnLoad } from "@/components/case/CaseParts";
+import Header from "@/components/Header";
+import Motif from "@/components/case/Motif";
+import { ArrowIcon, GitHubIcon } from "@/components/Icons";
 
 type Params = { slug: string };
 
@@ -21,64 +21,71 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const p = getProject((await params).slug);
   if (!p) return {};
   return {
-    title: `${p.name} — étude de cas`,
+    title: `${p.name}, étude de cas`,
     description: p.summary,
     alternates: { canonical: `/projets/${p.slug}/` },
-    openGraph: { title: `${p.name} — ${site.name}`, description: p.line, url: `/projets/${p.slug}/`, images: [p.cover] },
+    openGraph: { title: `${p.name} · ${site.name}`, description: p.line, url: `/projets/${p.slug}/`, images: [p.cover] },
   };
 }
 
-function Block({ b, p }: { b: CaseBlock; p: Project }) {
+// Le thème du projet devient les variables de la page : tout le CSS commun s'y adapte.
+const vars = (t: CaseTheme) =>
+  ({
+    "--c-bg": t.bg,
+    "--c-fg": t.fg,
+    "--c-fg2": t.fg2,
+    "--c-accent": t.accent,
+    "--c-on-accent": t.onAccent,
+    "--c-card": t.card,
+    "--c-line": t.line,
+  }) as React.CSSProperties;
+
+function Block({ b }: { b: CaseBlock }) {
   switch (b.type) {
     case "section":
       return (
-        <section className="block container">
-          <div className="block__head">
-            <SplitReveal as="h2">{b.title}</SplitReveal>
-          </div>
-          <Reveal className="block__body" stagger={0.1}>
+        <section className="cblock" data-reveal>
+          <h2>{b.title}</h2>
+          <div className="cblock__body">
             {b.body.map((t, i) => (
               <p key={i}>{t}</p>
             ))}
-          </Reveal>
+          </div>
         </section>
       );
     case "quote":
       return (
-        <div className="container">
-          <SplitReveal as="blockquote" className="quote" stagger={0.07}>
-            <em className="accent">“</em>
-            {b.text}
-            <em className="accent">”</em>
-          </SplitReveal>
-        </div>
+        <blockquote className="cquote" data-reveal>
+          {b.text}
+        </blockquote>
       );
     case "list":
       return (
-        <section className="block container">
-          <div className="block__head">
-            <SplitReveal as="h2">{b.title}</SplitReveal>
-          </div>
-          <Reveal as="ol" className="block__body block__list" stagger={0.06} y={24}>
+        <section className="cblock" data-reveal>
+          <h2>{b.title}</h2>
+          <ul className="cblock__body clist">
             {b.items.map((t, i) => (
-              <li key={i}>
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                {t}
-              </li>
+              <li key={i}>{t}</li>
             ))}
-          </Reveal>
+          </ul>
         </section>
       );
     case "stats":
       return (
-        <div className="container">
-          <Metrics items={b.items} className="metrics stats-row" />
+        <div className="metrics" data-reveal>
+          {b.items.map((m) => (
+            <div key={m.label}>
+              <strong>{m.value}</strong>
+              <span>{m.label}</span>
+            </div>
+          ))}
         </div>
       );
     case "image":
       return (
-        <figure className="case-image container">
-          <Stage bg={p.stage} src={b.src} url={p.url} alt={b.caption} sizes="(max-width: 860px) 100vw, 90vw" depth={6} />
+        <figure className="cfigure" data-reveal>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={b.src} alt={b.caption} loading="lazy" />
           <figcaption>{b.caption}</figcaption>
         </figure>
       );
@@ -89,81 +96,107 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
   const p = getProject((await params).slug);
   if (!p) notFound();
   const next = nextProject(p.slug);
+  const t = themeOf(p.slug);
+  const nt = themeOf(next.slug);
+  const site_ = p.links.find((l) => !l.href.includes("github.com"));
+  const code = p.links.find((l) => l.href.includes("github.com"));
 
   return (
-    <main id="main">
-      <RefreshOnLoad />
-      <header className="case-hero container">
-        <Reveal on="intro" className="case-hero__top" delay={0.2}>
-          <TLink href="/#travaux" label="Accueil" className="back roll-host">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <path d="M19 12H5M11 6l-6 6 6 6" />
-            </svg>
-            <Roll text="Tous les projets" />
-          </TLink>
-          <span className="label">
-            {p.category} — {p.year}
-          </span>
-        </Reveal>
+    <>
+      <Header solid />
+      <main id="main" className={`case case--${p.slug} case-font--${t.font}${t.dark ? " is-dark" : ""} ${caseFontVars}`} style={vars(t)}>
+        <header className="case__hero">
+          {t.motif !== "route" && <Motif name={t.motif} />}
+          <div className="case__wrap case__intro">
+            <p className="case__tags">
+              <span>{p.category}</span>
+              <span>{p.year}</span>
+              {p.status && <span className="is-status">{p.status}</span>}
+            </p>
+            <h1>{p.name}</h1>
+            <p className="case__headline">{p.headline}</p>
+            <div className="case__actions">
+              {site_ && (
+                <a href={site_.href} target="_blank" rel="noopener noreferrer" className="case__btn case__btn--solid">
+                  Voir le site en ligne <ArrowIcon size={14} />
+                </a>
+              )}
+              {code && (
+                <a href={code.href} target="_blank" rel="noopener noreferrer" className="case__btn">
+                  <GitHubIcon size={16} /> Lire le code
+                </a>
+              )}
+              {!p.links.length && <span className="case__private">Code privé, projet client. Démonstration sur demande.</span>}
+            </div>
+          </div>
+          {t.motif === "route" && <Motif name={t.motif} />}
+          <div className="case__shot">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.cover} alt={`Capture du projet ${p.name}`} />
+          </div>
+        </header>
 
-        <SplitReveal as="h1" on="intro" className="display-xl case-hero__title" stagger={0.08}>
-          {p.headline}
-        </SplitReveal>
+        <div className="case__wrap">
+          <dl className="case__meta" data-reveal>
+            <div>
+              <dt>Rôle</dt>
+              <dd>{p.role}</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>{p.stack.join(", ")}</dd>
+            </div>
+          </dl>
 
-        <Reveal on="intro" className="case-meta" stagger={0.07} delay={0.5}>
-          <div>
-            <span className="label">Projet</span>
-            <p>{p.name}</p>
+          <p className="case__summary" data-reveal>
+            {p.summary}
+          </p>
+
+          <div className="metrics" data-reveal>
+            {p.metrics.map((m) => (
+              <div key={m.label}>
+                <strong>{m.value}</strong>
+                <span>{m.label}</span>
+              </div>
+            ))}
           </div>
-          <div>
-            <span className="label">Rôle</span>
-            <p>{p.role}</p>
+
+          <div className="case__body">
+            {p.case.map((b, i) => (
+              <Block key={i} b={b} />
+            ))}
           </div>
-          <div>
-            <span className="label">Stack</span>
-            <p>{p.stack.join(", ")}</p>
-          </div>
-          <div>
-            <span className="label">{p.links.length ? "Liens" : "Statut"}</span>
-            {p.links.length ? (
-              <div className="case-links">
-                {p.links.map((l) => (
-                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="pill pill--ghost roll-host" style={{ ["--h" as string]: "38px", padding: "0 16px", fontSize: 13 }}>
-                    <Roll text={l.label} />
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M7 17 17 7M8 7h9v9" />
-                    </svg>
-                  </a>
+
+          {p.gallery.length > 1 && (
+            <section className="gallery" aria-label="Galerie">
+              <h2 className="case__h" data-reveal>
+                En images
+              </h2>
+              <div className="gallery__grid">
+                {p.gallery.map((g, i) => (
+                  <figure key={g.src + i} className="cfigure" data-reveal>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={g.src} alt={g.caption} loading="lazy" />
+                    <figcaption>{g.caption}</figcaption>
+                  </figure>
                 ))}
               </div>
-            ) : (
-              <p>Code privé — projet client. Démonstration sur demande.</p>
-            )}
-          </div>
-        </Reveal>
-      </header>
-
-      <CaseCover p={p} />
-
-      <div className="container">
-        <div className="case-summary">
-          <span className="label">Résumé</span>
-          <SplitReveal as="p" stagger={0.05}>
-            {p.summary}
-          </SplitReveal>
+            </section>
+          )}
         </div>
-        <Metrics items={p.metrics} />
-      </div>
 
-      <div className="case-body">
-        {p.case.map((b, i) => (
-          <Block key={i} b={b} p={p} />
-        ))}
-      </div>
-
-      <Gallery p={p} />
-
-      <NextProject p={next} />
-    </main>
+        <Link href={`/projets/${next.slug}/`} className="nextcase" style={{ background: nt.bg, color: nt.fg }}>
+          <span className="nextcase__label" style={{ color: nt.accent }}>
+            Projet suivant
+          </span>
+          <span className="nextcase__name">
+            {next.name} <ArrowIcon size={32} />
+          </span>
+          <span className="nextcase__line" style={{ color: nt.fg2 }}>
+            {next.line}
+          </span>
+        </Link>
+      </main>
+    </>
   );
 }

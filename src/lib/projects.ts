@@ -41,33 +41,32 @@ export const projects: Project[] = [
     stage: "linear-gradient(160deg, #e9542f 0%, #b6301a 55%, #4a1209 100%)",
     url: "tsundoku-s6lz.onrender.com",
     cover: "/work/tsundoku-1.webp",
-    status: "En production",
+    status: "Déployé · serveur en pause",
     gallery: [
-      { src: "/work/tsundoku-1.webp", caption: "Accueil — direction artistique japonaise (ma 間, wabi-sabi), couvertures Anilist réelles." },
-      { src: "/work/tsundoku-3.webp", caption: "Bibliothèque — navigation par séries et collections." },
-      { src: "/work/tsundoku-4.webp", caption: "Journal — le flux éditorial des chroniques." },
+      { src: "/work/tsundoku-1.webp", caption: "Accueil : direction artistique japonaise (ma 間, wabi-sabi), couvertures Anilist réelles." },
+      { src: "/work/tsundoku-3.webp", caption: "Bibliothèque : navigation par séries et collections." },
+      { src: "/work/tsundoku-4.webp", caption: "Journal : le flux éditorial des chroniques." },
       { src: "/work/tsundoku-5.webp", caption: "Statistiques de lecture." },
     ],
     summary:
       "Plateforme de chroniques manga complète : rédaction riche, import .docx/.pdf reformaté automatiquement aux codes du site, métadonnées réelles via Anilist, SEO rendu côté serveur, lecture audio par voix neuronale. Menée de la direction artistique jusqu’à la mise en ligne.",
     stack: ["Node.js", "Express", "MySQL", "JWT", "Joi", "GSAP", "Three.js", "GraphQL", "Edge-TTS"],
     links: [
-      { label: "Voir le site", href: "https://tsundoku-s6lz.onrender.com" },
       { label: "Code source", href: "https://github.com/Abdoulrazack1/tsundoku" },
     ],
     metrics: [
       { value: "20+", label: "tables MySQL normalisées" },
       { value: "SSR", label: "meta, Open Graph et JSON-LD par page" },
       { value: "5", label: "formats importés et reformatés" },
-      { value: "Live", label: "Render + Aiven" },
+      { value: "Prod", label: "déployé sur Render + Aiven" },
     ],
     case: [
       {
         type: "section",
         title: "Le point de départ",
         body: [
-          "Je voulais un blog de lecture qui ne ressemble à aucun autre : un objet éditorial avec une direction artistique japonaise assumée — l’espace (ma 間), la beauté de l’imparfait (wabi-sabi 侘寂), un papier washi off-white, un vermillon utilisé avec parcimonie.",
-          "Le pari : une expérience aussi soignée qu’un site primé, posée sur un vrai produit — comptes, rédaction, SEO, mise en production. Pas une maquette : un service qui tourne.",
+          "Je voulais un blog de lecture qui ne ressemble à aucun autre : un objet éditorial avec une direction artistique japonaise assumée, faite d’espace (ma 間), de la beauté de l’imparfait (wabi-sabi 侘寂), d’un papier washi off-white et d’un vermillon utilisé avec parcimonie.",
+          "Le pari : une expérience aussi soignée qu’un site primé, posée sur un vrai produit avec comptes, rédaction, SEO et mise en production.",
         ],
       },
       { type: "quote", text: "Je ne voulais pas « un blog ». Je voulais tenir un produit de la première intention graphique jusqu’au serveur en ligne." },
@@ -122,19 +121,19 @@ export const projects: Project[] = [
   {
     slug: "cabinet",
     name: "Cabinet d’avocats",
-    line: "Plateforme métier pour un cabinet réel — la sécurité portée par la base de données.",
+    line: "La plateforme métier d’un vrai cabinet, où la sécurité est portée par la base de données.",
     headline: "Une plateforme juridique où le secret professionnel est garanti par PostgreSQL, pas par la discipline du code.",
     year: "2026",
     role: "Architecture, back-end, sécurité, interfaces",
     category: "Client · Plateforme métier",
     stage: "linear-gradient(160deg, #2f4a3f 0%, #1d3029 55%, #0c1512 100%)",
-    url: "espace.cabinet — démo",
+    url: "espace.cabinet · démo",
     cover: "/work/cabinet-1.webp",
     status: "En cours",
     gallery: [
-      { src: "/work/cabinet-1.webp", caption: "Tableau de bord avocat — demandes à traiter, journée, dossiers en cours (données de démonstration)." },
-      { src: "/work/cabinet-2.webp", caption: "Dossiers — cloisonnés par Row-Level Security." },
-      { src: "/work/cabinet-3.webp", caption: "Agenda — la double réservation est impossible au niveau de la base." },
+      { src: "/work/cabinet-1.webp", caption: "Tableau de bord avocat : demandes à traiter, journée, dossiers en cours (données de démonstration)." },
+      { src: "/work/cabinet-2.webp", caption: "Dossiers : cloisonnés par Row-Level Security." },
+      { src: "/work/cabinet-3.webp", caption: "Agenda : la double réservation est impossible au niveau de la base." },
       { src: "/work/cabinet-4.webp", caption: "Revue périodique des accès." },
     ],
     summary:
@@ -152,7 +151,7 @@ export const projects: Project[] = [
         type: "section",
         title: "Le contexte",
         body: [
-          "Un vrai cabinet, un vrai cahier des charges (19 sections) : site institutionnel, espace client, espace avocat — dossiers, agenda, messagerie, facturation, vigilance anti-blanchiment.",
+          "Un vrai cabinet, un vrai cahier des charges (19 sections) : site institutionnel, espace client, espace avocat (dossiers, agenda, messagerie, facturation, vigilance anti-blanchiment).",
           "Les données traitées relèvent du secret professionnel de l’avocat. Une requête qui oublie un WHERE n’est pas un bug : c’est une fuite.",
         ],
       },
@@ -165,7 +164,7 @@ export const projects: Project[] = [
           "Le rôle applicatif n’est pas propriétaire des tables, et l’API refuse de démarrer si c’est le cas. Le code métier ne filtre jamais par utilisateur : dupliquer le cloisonnement créerait deux sources de vérité qui divergent.",
         ],
       },
-      { type: "image", src: "/work/cabinet-2.webp", caption: "Les dossiers visibles sont ceux que la base autorise — rien n’est filtré côté application." },
+      { type: "image", src: "/work/cabinet-2.webp", caption: "Les dossiers visibles sont ceux que la base autorise : rien n’est filtré côté application." },
       {
         type: "list",
         title: "Ce qui garantit quoi",
@@ -191,7 +190,7 @@ export const projects: Project[] = [
   {
     slug: "galactic-brain",
     name: "Galactic Brain",
-    line: "Un serveur MCP qui donne une mémoire persistante à Claude — 49 outils, 2 dépendances.",
+    line: "Un serveur MCP qui donne une mémoire persistante à Claude : 49 outils, 2 dépendances.",
     headline: "Une mémoire augmentée pour l’IA : un serveur MCP qui transforme un vault Obsidian en contexte exploitable.",
     year: "2026",
     role: "Conception, TypeScript, recherche d’information",
@@ -225,18 +224,18 @@ export const projects: Project[] = [
         title: "La refonte v15",
         body: [
           "Les premières versions avaient accumulé 114 outils dans un monolithe de près de 6 000 lignes, avec beaucoup de redondance. La v15 est une refonte modulaire : une couche core sans logique d’outil (vault, recherche, git, raisonnement), un renderer partagé, un registre explicite et une famille d’outils par fichier.",
-          "Résultat : 49 outils mieux définis, chacun appelable par les autres via le registre. Moins d’outils, plus de valeur — c’est la décision dont je suis le plus fier sur ce projet.",
+          "Résultat : 49 outils mieux définis, chacun appelable par les autres via le registre. Moins d’outils, plus de valeur : c’est la décision dont je suis le plus fier sur ce projet.",
         ],
       },
       {
         type: "list",
         title: "Les outils phares",
         items: [
-          "brain_brief — rapport de situation proactif en un appel",
-          "brain_advise — stress-test d’une décision, verdict GO / CAUTION / NO-GO",
-          "brain_critic — avocat du diable sur un plan",
-          "brain_foresee — anticipation des deadlines à risque et des fils qui meurent",
-          "brain_chain — raisonnement séquentiel ancré dans le vault",
+          "brain_brief : rapport de situation proactif en un appel",
+          "brain_advise : stress-test d’une décision, verdict GO / CAUTION / NO-GO",
+          "brain_critic : avocat du diable sur un plan",
+          "brain_foresee : anticipation des deadlines à risque et des fils qui meurent",
+          "brain_chain : raisonnement séquentiel ancré dans le vault",
         ],
       },
       {
@@ -252,17 +251,17 @@ export const projects: Project[] = [
   {
     slug: "cycling",
     name: "C.C. Salouël",
-    line: "La plateforme d’un club cycliste — routage vélo réel, GPX, profils altimétriques.",
+    line: "La plateforme d’un club cycliste : vrais itinéraires vélo, GPX et profils d’altitude.",
     headline: "Une plateforme pour un club de cyclisme, où ajouter une sortie prend quelques secondes.",
     year: "2026",
     role: "Architecture, full-stack, pipeline de données",
     category: "Full-stack · Club réel",
     stage: "linear-gradient(160deg, #1fbf9f 0%, #0f6e63 55%, #06302c 100%)",
-    url: "ccs-salouel — club",
+    url: "ccs-salouel · club",
     cover: "/work/cycling-1.webp",
     gallery: [
       { src: "/work/cycling-1.webp", caption: "Accueil du club." },
-      { src: "/work/cycling-2.webp", caption: "Parcours — carte, tracé GPX et profil altimétrique coloré par pente." },
+      { src: "/work/cycling-2.webp", caption: "Parcours : carte, tracé GPX et profil altimétrique coloré par pente." },
       { src: "/work/cycling-3.webp", caption: "Catalogue des sorties générées automatiquement." },
     ],
     summary:
@@ -310,13 +309,13 @@ export const projects: Project[] = [
   {
     slug: "inkstudio",
     name: "InkStudio",
-    line: "Un studio d’animation whiteboard dans le navigateur — multi-scènes, voix off, export MP4.",
+    line: "Un studio d’animation tableau blanc dans le navigateur : scènes, voix off, export MP4.",
     headline: "Un studio d’animation tableau blanc qui tourne entièrement dans le navigateur, synchronisé sur la voix.",
     year: "2026",
     role: "Produit, JavaScript, audio et vidéo",
     category: "Outil créatif · Desktop",
     stage: "linear-gradient(160deg, #3a5bd9 0%, #23338a 55%, #0e1440 100%)",
-    url: "inkstudio — app desktop",
+    url: "inkstudio · app desktop",
     cover: "/work/inkstudio-1.webp",
     gallery: [{ src: "/work/inkstudio-1.webp", caption: "L’éditeur : styles d’animation, scènes, voix off, musique, sous-titres." }],
     summary:
@@ -363,7 +362,7 @@ export const projects: Project[] = [
   {
     slug: "inko",
     name: "Inko",
-    line: "Lecteur de manga en ligne — architecture modulaire, PWA hors-ligne, app Android.",
+    line: "Un lecteur de manga en ligne, lisible hors connexion et installable sur Android.",
     headline: "La plateforme de lecture manga où le JavaScript a pris les commandes du rendu.",
     year: "2026",
     role: "Front-end, architecture JavaScript, intégration d’API",
@@ -372,7 +371,7 @@ export const projects: Project[] = [
     url: "abdoulrazack1.github.io/Inko",
     cover: "/work/inko-1.webp",
     gallery: [
-      { src: "/work/inko-1.webp", caption: "Accueil — rendu dynamique depuis les données." },
+      { src: "/work/inko-1.webp", caption: "Accueil : rendu dynamique depuis les données." },
       { src: "/work/inko-2.webp", caption: "Catalogue des séries." },
       { src: "/work/inko-3.webp", caption: "Fiche série et métadonnées Anilist." },
       { src: "/work/inko-4.webp", caption: "Lecteur de chapitre." },
@@ -398,12 +397,12 @@ export const projects: Project[] = [
           "Inko est le projet où j’ai arrêté d’écrire des pages figées pour laisser le JavaScript construire l’interface à partir des données : catalogue, fiche série, lecteur, collections, authentification.",
         ],
       },
-      { type: "quote", text: "Avant Inko, j’écrivais des pages. Après, j’écrivais un état — et l’interface en était la conséquence." },
+      { type: "quote", text: "Avant Inko, j’écrivais des pages. Après, j’écrivais un état, et l’interface en était la conséquence." },
       {
         type: "section",
         title: "Séparer la logique de la vue",
         body: [
-          "Architecture modulaire en ES Modules, logique séparée du rendu, cache et service worker pour lire hors-ligne. Puis une app Android empaquetée — avec ses propres pièges : un WebView ancien qui ignore certaines propriétés CSS modernes, à contourner une par une.",
+          "Architecture modulaire en ES Modules, logique séparée du rendu, cache et service worker pour lire hors-ligne. Puis une app Android empaquetée, avec ses propres pièges : un WebView ancien qui ignore certaines propriétés CSS modernes, à contourner une par une.",
         ],
       },
       { type: "image", src: "/work/inko-4.webp", caption: "Le lecteur de chapitre, piloté entièrement par l’état." },
@@ -413,8 +412,8 @@ export const projects: Project[] = [
   {
     slug: "js-ranker",
     name: "Js-Ranker",
-    line: "Noter la qualité d’un code JavaScript avec un modèle entraîné — et l’imposer en CI.",
-    headline: "Une note continue de 0 à 5 pour la qualité du code, prédite par un modèle — pas une liste de règles.",
+    line: "Un modèle entraîné qui note la qualité d’un code JavaScript, et l’impose en CI.",
+    headline: "Une note continue de 0 à 5 pour la qualité du code, prédite par un modèle plutôt que par une liste de règles.",
     year: "2026",
     role: "Machine learning, analyse statique, outillage",
     category: "Outillage · ML",
@@ -423,7 +422,7 @@ export const projects: Project[] = [
     cover: "/work/js-ranker-1.webp",
     gallery: [{ src: "/work/js-ranker-1.webp", caption: "Rapport : score global, sous-scores par feature, conseils priorisés." }],
     summary:
-      "Là où un linter applique des règles binaires, Js-Ranker attribue une note continue via un réseau de régression TensorFlow.js entraîné sur 10 features AST — avec conseils de refactoring priorisés, API REST et quality gate GitHub Actions.",
+      "Là où un linter applique des règles binaires, Js-Ranker attribue une note continue via un réseau de régression TensorFlow.js entraîné sur 10 features AST, avec conseils de refactoring priorisés, API REST et quality gate GitHub Actions.",
     stack: ["Node.js", "TensorFlow.js", "Acorn", "AST", "Express", "GitHub Actions"],
     links: [{ label: "Code source", href: "https://github.com/Abdoulrazack1/Js-Ranker" }],
     metrics: [
@@ -438,7 +437,7 @@ export const projects: Project[] = [
         title: "Le problème",
         body: ["« Ce code est-il bon ? » est une question vague. Je voulais rendre la qualité mesurable : une note continue, reproductible et défendable, basée sur la structure réelle du code."],
       },
-      { type: "quote", text: "Un linter dit « cette règle est violée ». Js-Ranker dit « 3,5 / 5 — voici pourquoi, et quoi corriger en premier »." },
+      { type: "quote", text: "Un linter dit « cette règle est violée ». Js-Ranker dit « 3,5 / 5 : voici pourquoi, et quoi corriger en premier »." },
       {
         type: "section",
         title: "L’approche",
@@ -453,7 +452,7 @@ export const projects: Project[] = [
   {
     slug: "logic-lens",
     name: "Logic-Lens",
-    line: "Une IA qui reconnaît la formule derrière une fonction — et sait dire « je ne sais pas ».",
+    line: "Une IA qui reconnaît la formule derrière une fonction, et sait dire « je ne sais pas ».",
     headline: "Reconnaître l’invariant mathématique d’une fonction JavaScript, et savoir s’abstenir.",
     year: "2026",
     role: "Recherche, machine learning, interface",
@@ -463,7 +462,7 @@ export const projects: Project[] = [
     cover: "/work/logic-lens-1.webp",
     gallery: [{ src: "/work/logic-lens-1.webp", caption: "Le code à gauche, l’analyse en cinq onglets à droite." }],
     summary:
-      "Un Transformer Encoder TensorFlow.js classe une fonction parmi 25 formules canoniques — et rejette explicitement le code qui n’en est aucune (open-set recognition) au lieu d’halluciner avec aplomb.",
+      "Un Transformer Encoder TensorFlow.js classe une fonction parmi 25 formules canoniques, et rejette explicitement le code qui n’en est aucune (open-set recognition) au lieu d’halluciner avec aplomb.",
     stack: ["TensorFlow.js", "Transformer", "Acorn", "AST", "Node.js"],
     links: [{ label: "Code source", href: "https://github.com/Abdoulrazack1/Logic-Lens" }],
     metrics: [

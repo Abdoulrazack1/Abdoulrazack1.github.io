@@ -8,5 +8,6 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/abdoulrazack-abdillahi-mahamoud-2910ab176",
   url: "https://abdoulrazack1.github.io",
   description:
-    "Développeur full-stack basé à Lille. Je conçois des produits web complets — modélisation des données, API sécurisées, interfaces soignées jusqu’au mouvement. Ouvert à toute opportunité : CDI, CDD, freelance ou alternance.",
+    "Développeur full-stack à Lille. Je conçois des applications web utiles et sobres, de la base de données à l’interface, et je les mène jusqu’à la mise en production. Ouvert aux CDI, CDD, missions et à l’alternance.",
+  availability: "Disponible · alternance, CDI, missions",
 };

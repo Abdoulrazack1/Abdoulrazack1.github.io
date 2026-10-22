@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- Image de partage 1200×630, rendue par : chrome --headless --screenshot --window-size=1200,630 -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: "Bricolage Grotesque", sans-serif;
+    color: #f1efe8;
+    background:
+      radial-gradient(55% 60% at 78% 45%, rgba(42,59,255,.45), transparent 70%),
+      radial-gradient(35% 35% at 10% 0%, rgba(255,154,213,.14), transparent 70%),
+      #0a0b1d;
+  }
+  canvas { position: absolute; inset: 0; }
+  .brand { position: absolute; left: 72px; top: 64px; display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+  .logo { position: relative; width: 34px; height: 34px; }
+  .logo i { position: absolute; width: 20px; height: 20px; }
+  .logo i:first-child { left: 0; top: 0; background: #ffd23f; border-radius: 0 0 100% 0; }
+  .logo i:last-child { right: 0; bottom: 0; background: #ff9ad5; border-radius: 50%; }
+  h1 { position: absolute; left: 72px; top: 190px; font-size: 104px; font-weight: 600; line-height: .97; letter-spacing: -.045em; }
+  h1 em { font-style: normal; color: #ff9ad5; }
+  .foot { position: absolute; left: 72px; right: 72px; bottom: 60px; display: flex; justify-content: space-between; font-size: 24px; font-weight: 600; color: rgba(241,239,232,.75); }
+  .foot b { color: #f1efe8; border-bottom: 3px solid #ffd23f; }
+</style>
+</head>
+<body>
+  <canvas id="c" width="1200" height="630"></canvas>
+  <div class="brand"><span class="logo"><i></i><i></i></span>Abdoulrazack Abdillahi</div>
+  <h1>Je code des applis<br>qui servent <em>vraiment.</em></h1>
+  <div class="foot"><span>Développeur full-stack · Lille</span><b>abdoulrazack1.github.io</b></div>
+  <script>
+    // Même galaxie que le site, figée.
+    const ctx = document.getElementById("c").getContext("2d");
+    const C = ["#8e99ff", "#ff9ad5", "#ffd23f", "#ffffff", "#5b68ff"];
+    const cx = 900, cy = 330, R = 360, tilt = .34, skew = -.38;
+    for (let i = 0; i < 5000; i++) {
+      const t = Math.pow(Math.random(), .6), r = .04 + t * .96, sp = (Math.random() - .5) * (.5 - t * .28);
+      const a = (i % 2) * Math.PI + r * 5.2 + sp * 2.4;
+      const x = Math.cos(a) * r * R, z = Math.sin(a) * r * R;
+      ctx.globalAlpha = (.4 + Math.random() * .6) * (1 - r * .3);
+      ctx.fillStyle = Math.random() < .55 ? C[0] : C[Math.floor(Math.random() * C.length)];
+      const s = Math.random() < .07 ? 2.6 : Math.random() < .45 ? 1.6 : 1;
+      ctx.fillRect(cx + x * Math.cos(skew) - z * tilt * Math.sin(skew), cy + x * Math.sin(skew) + z * tilt * Math.cos(skew), s, s);
+    }
+  </script>
+</body>
+</html>
