@@ -41,7 +41,7 @@ export const projects: Project[] = [
     stage: "linear-gradient(160deg, #e9542f 0%, #b6301a 55%, #4a1209 100%)",
     url: "tsundoku-s6lz.onrender.com",
     cover: "/work/tsundoku-1.webp",
-    status: "Déployé · serveur en pause",
+    status: "En production",
     gallery: [
       { src: "/work/tsundoku-1.webp", caption: "Accueil : direction artistique japonaise (ma 間, wabi-sabi), couvertures Anilist réelles." },
       { src: "/work/tsundoku-3.webp", caption: "Bibliothèque : navigation par séries et collections." },
@@ -52,13 +52,14 @@ export const projects: Project[] = [
       "Plateforme de chroniques manga complète : rédaction riche, import .docx/.pdf reformaté automatiquement aux codes du site, métadonnées réelles via Anilist, SEO rendu côté serveur, lecture audio par voix neuronale. Menée de la direction artistique jusqu’à la mise en ligne.",
     stack: ["Node.js", "Express", "MySQL", "JWT", "Joi", "GSAP", "Three.js", "GraphQL", "Edge-TTS"],
     links: [
+      { label: "Voir le site", href: "https://tsundoku-s6lz.onrender.com" },
       { label: "Code source", href: "https://github.com/Abdoulrazack1/tsundoku" },
     ],
     metrics: [
       { value: "20+", label: "tables MySQL normalisées" },
       { value: "SSR", label: "meta, Open Graph et JSON-LD par page" },
       { value: "5", label: "formats importés et reformatés" },
-      { value: "Prod", label: "déployé sur Render + Aiven" },
+      { value: "Live", label: "en ligne sur Render + Aiven" },
     ],
     case: [
       {
